@@ -1,1 +1,1 @@
-export * from './lib/design-system-styles';
+export { CustomThemeProvider } from './lib/theme-provider';
