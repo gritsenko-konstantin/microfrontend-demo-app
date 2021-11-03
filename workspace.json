@@ -2,9 +2,9 @@
   "version": 1,
   "projects": {
     "design-system": "apps/design-system",
+    "tio": "apps/tio",
     "design-system-components": "libs/design-system/components",
     "design-system-styles": "libs/design-system/styles",
-    "tio": "apps/tio",
     "tio-common": "libs/tio/common"
   }
 }
