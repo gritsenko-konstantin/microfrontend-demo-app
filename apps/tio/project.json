@@ -1,0 +1,69 @@
+{
+  "root": "apps/tio",
+  "sourceRoot": "apps/tio/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/tio",
+        "index": "apps/tio/src/index.html",
+        "baseHref": "/",
+        "main": "apps/tio/src/main.tsx",
+        "polyfills": "apps/tio/src/polyfills.ts",
+        "tsConfig": "apps/tio/tsconfig.app.json",
+        "assets": ["apps/tio/src/favicon.ico", "apps/tio/src/assets"],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/tio/src/environments/environment.ts",
+              "with": "apps/tio/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "tio:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "tio:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/tio/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/tio"],
+      "options": {
+        "jestConfig": "apps/tio/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

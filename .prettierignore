@@ -1,0 +1,8 @@
+# Add files here to ignore them from prettier formatting
+
+/dist
+/coverage
+
+/apps/design-system/node_modules
+/apps/design-system/public
+/apps/design-system/.cache
