@@ -15,6 +15,8 @@ module.exports = {
             remotes: {
                 'application1': 'application1',
                 'application2': 'application2',
+                'design-system/components': 'design-system/components',
+                'design-system/styles': 'design-system/styles',
                 'tio/common': 'tio/common',
             },
             shared: ['react', 'react-dom'],

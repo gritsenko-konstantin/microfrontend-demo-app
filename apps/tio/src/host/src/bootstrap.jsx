@@ -5,6 +5,8 @@ import { themeGet } from '@styled-system/theme-get';
 
 import App1 from 'application1';
 import App2 from 'application2';
+import TdsComponent from 'design-system/components';
+import TdsStyles from 'design-system/styles';
 import TioComponent from 'tio/common';
 
 /*
@@ -68,6 +70,8 @@ ReactDOM.render(
     Test 
     <App1 />
     <App2 />
+    <TdsComponent />
+    <TdsStyles />
     <TioComponent />
   </>,
   document.getElementById('root')

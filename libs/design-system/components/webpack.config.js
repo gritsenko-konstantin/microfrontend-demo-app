@@ -2,15 +2,15 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 
 const baseConfig = require('../../../tools/webpack.config');
 
-const PORT = '3005';
+const PORT = '3003';
 
 module.exports = {
     ...baseConfig(__dirname, PORT),
     plugins: [
         // New
         new ModuleFederationPlugin({
-            name: 'tio/common',
-            library: { type: 'window', name: 'tio/common' },
+            name: 'design-system/components',
+            library: { type: 'window', name: 'design-system/components' },
             filename: 'remoteEntry.js',
             exposes: {
               '.': './src/app',

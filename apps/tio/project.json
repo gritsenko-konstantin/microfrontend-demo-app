@@ -10,6 +10,8 @@
             "cd apps/tio/src/host && npm run dev",
             "cd apps/tio/src/application-1 && npm run dev",
             "cd apps/tio/src/application-2 && npm run dev",
+            "cd libs/design-system/components && npm run dev",
+            "cd libs/design-system/styles && npm run dev",
             "cd libs/tio/common && npm run dev"
           ]
         }
