@@ -18,7 +18,8 @@
     "serve": {
       "executor": "@nrwl/gatsby:server",
       "options": {
-        "buildTarget": "design-system:build"
+        "buildTarget": "design-system:build",
+        "port": 4444
       },
       "configurations": {
         "production": {

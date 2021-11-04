@@ -40,7 +40,8 @@
       "executor": "@nrwl/web:dev-server",
       "options": {
         "buildTarget": "tio:build",
-        "hmr": true
+        "hmr": true,
+        "port": 3333
       },
       "configurations": {
         "production": {

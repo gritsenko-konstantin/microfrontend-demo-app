@@ -1,1 +1,1 @@
-export * from './lib/tio-common';
+export { TioComponent } from './lib/tio-component';
