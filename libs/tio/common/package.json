@@ -1,0 +1,9 @@
+{
+  "name": "application-b",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack-dev-server"
+  }
+}

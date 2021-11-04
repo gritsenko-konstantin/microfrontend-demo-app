@@ -1,0 +1,23 @@
+{
+  "root": "libs/tio/common",
+  "sourceRoot": "libs/tio/common/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/tio/common/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/tio/common"],
+      "options": {
+        "jestConfig": "libs/tio/common/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
