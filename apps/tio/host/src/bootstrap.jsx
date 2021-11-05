@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import * as ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { themeGet } from '@styled-system/theme-get';
@@ -15,9 +15,7 @@ import { CustomThemeProvider } from '@microfrontend-demo/design-system/styles';
 import { Theme } from './theme';
 import { SideNav } from './side-nav';
 import { Landing } from './landing';
-
-const App1 = lazy(() => import('application1'));
-const App2 = lazy(() => import('application2'));
+import { MicroApp } from './utils';
 
 const Content = styled.div`
     padding: ${themeGet('space.4')};
@@ -39,12 +37,6 @@ const HeaderLogo = styled(Link)`
     text-decoration: none;
 `;
 
-const Loader = () => {
-    return (
-        <>Please wait while the application is loaded</>
-    );
-};
-
 const App = () => {
     return (
         <CustomThemeProvider theme={Theme}>
@@ -59,20 +51,12 @@ const App = () => {
                                 
                                 <Route
                                     path='app1'
-                                    element={(
-                                        <Suspense fallback={<Loader />}>
-                                            <App1 />
-                                        </Suspense>
-                                    )}
+                                    element={<MicroApp name='application1' />}
                                 />
 
                                 <Route
                                     path='app2'
-                                    element={(
-                                        <Suspense fallback={<Loader />}>
-                                            <App2 />
-                                        </Suspense>
-                                    )}
+                                    element={<MicroApp name='application2' />}
                                 />
                             </Routes>  
                         </Content>
@@ -82,11 +66,6 @@ const App = () => {
         </CustomThemeProvider>
     );
 };
-
-/*
-<Route path="app1" element={<App1 />} />
-<Route path="app2" element={<App2 />} />
-*/
 
 ReactDOM.render(
     <App />,

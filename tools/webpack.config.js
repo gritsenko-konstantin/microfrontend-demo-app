@@ -1,6 +1,9 @@
 const path = require('path');
+const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+
+const { getRemote, getRemotes } = require('./remote-management');
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -22,6 +25,9 @@ const getFederatedPlugin = (directory, remoteName) => {
             }),
             new HtmlWebpackPlugin({
                 template: path.resolve(directory, 'public/index.html'),
+            }),
+            new DefinePlugin({
+                REMOTE_INFO: JSON.stringify(getRemotes())
             })
         ];
     }
@@ -32,14 +38,18 @@ const getFederatedPlugin = (directory, remoteName) => {
             library: { type: 'window', name: remoteName },
             filename: 'remoteEntry.js',
             exposes: {
-              '.': path.resolve(directory, 'src/app.jsx'),
+              '.': path.resolve(directory, 'src'),
             },
             shared: ['react', 'react-dom', 'styled-components'],
           })
     ];
 };
 
-const baseConfig = (directory, port, remoteName) => {
+const baseConfig = (directory) => {
+    const package = require(path.resolve(directory, 'package.json'));
+    const remoteName = package.name;
+    const port = Object.values(getRemote(remoteName))[0];
+
     return {
         mode,
         entry: path.resolve(directory, './src/index'),

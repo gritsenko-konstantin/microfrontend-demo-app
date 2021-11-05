@@ -1,6 +1,6 @@
 {
-  "root": "apps/tio",
-  "sourceRoot": "apps/tio",
+  "root": "apps/tio/host",
+  "sourceRoot": "apps/tio/host/src",
   "projectType": "application",
   "targets": {
     "serve": {

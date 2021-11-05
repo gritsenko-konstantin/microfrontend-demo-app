@@ -1,7 +1,7 @@
 import React from 'react';
 import { TestComponent1 } from '@microfrontend-demo/design-system/components';
 
-export function App1() {
+const application1 = () => {
     return (
         <>
             <p>Application 1</p>
@@ -11,4 +11,6 @@ export function App1() {
     );
 }
 
-export default App1;
+export {
+    application1
+};
