@@ -15,7 +15,7 @@ import { CustomThemeProvider } from '@microfrontend-demo/design-system/styles';
 import { Theme } from './theme';
 import { SideNav } from './side-nav';
 import { Landing } from './landing';
-import { MicroApp } from './utils';
+import { MicroApp } from './remote-utils';
 
 const Content = styled.div`
     padding: ${themeGet('space.4')};

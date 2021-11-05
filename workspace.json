@@ -5,8 +5,8 @@
     "application1": "apps/tio/application-1",
     "application2": "apps/tio/application-2",
     "design-system": "apps/design-system",
-    "design-system-components": "libs/design-system/components",
-    "design-system-styles": "libs/design-system/styles",
-    "tio-common": "libs/tio/common"
+    "design-system/components": "libs/design-system/components",
+    "design-system/styles": "libs/design-system/styles",
+    "tio/common": "libs/tio/common"
   }
 }
