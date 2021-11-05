@@ -1,0 +1,33 @@
+{
+  "root": "apps/tio",
+  "sourceRoot": "apps/tio",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+        "executor": "@nrwl/workspace:run-commands",
+        "options": {
+          "commands": [
+            "cd apps/tio/host && npm run dev",
+            "cd apps/tio/application-1 && npm run dev",
+            "cd apps/tio/application-2 && npm run dev"
+          ]
+        }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/tio/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/tio/host"],
+      "options": {
+        "jestConfig": "apps/tio/host/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

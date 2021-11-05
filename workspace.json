@@ -1,8 +1,10 @@
 {
   "version": 1,
   "projects": {
+    "host": "apps/tio/host",
+    "application-1": "apps/tio/application-1",
+    "application-2": "apps/tio/application-2",
     "design-system": "apps/design-system",
-    "tio": "apps/tio",
     "design-system-components": "libs/design-system/components",
     "design-system-styles": "libs/design-system/styles",
     "tio-common": "libs/tio/common"
