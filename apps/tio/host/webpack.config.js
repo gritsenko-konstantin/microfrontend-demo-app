@@ -4,20 +4,39 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = () => {
-    const mode = process.env.NODE_ENV || 'development';
-    const remoteName = 'host';
-    const port = '3000';
-
     return {
-        mode,
-        entry: path.resolve(__dirname, 'src/index'),
+        plugins: [
+            new ModuleFederationPlugin({
+                name: 'host',
+                library: { type: 'window', name: 'host' },
+                filename: 'remoteEntry.js',
+                remotes: {
+                    'application1': 'application1',
+                    'application2': 'application2'
+                },
+                shared: [
+                    'react',
+                    'react-dom',
+                    'styled-components'
+                ]
+            }),
+            new HtmlWebpackPlugin({
+                template: path.resolve(__dirname, 'public/index.html'),
+            })
+        ],
         output: {
-            publicPath: `http://localhost:${port}/`,
+            path: path.resolve(__dirname, '../dist/host')
         },
-        devtool: 'source-map',
-        optimization: {
-            minimize: mode === 'production',
+        devServer: {
+            port: '3000',
+            client: {
+                overlay: false,
+            },
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
         },
+        mode: process.env.NODE_ENV || 'development',
         resolve: {
             extensions: ['.jsx', '.js', '.json', '.ts', '.tsx'],
             alias: {
@@ -42,33 +61,5 @@ module.exports = () => {
                 },
             ],
         },
-        devServer: {
-            port,
-            client: {
-                overlay: false,
-            },
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        },
-        plugins: [
-            new ModuleFederationPlugin({
-                name: 'host',
-                library: { type: 'window', name: 'host' },
-                filename: 'remoteEntry.js',
-                remotes: {
-                    'application1': 'application1',
-                    'application2': 'application2'
-                },
-                shared: [
-                    'react',
-                    'react-dom',
-                    'styled-components'
-                ]
-            }),
-            new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, 'public/index.html'),
-            })
-        ]
     };
 };

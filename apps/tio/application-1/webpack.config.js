@@ -3,20 +3,35 @@ const path = require('path');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 module.exports = () => {
-    const mode = process.env.NODE_ENV || 'development';
-    const remoteName = 'application1';
-    const port = '3001';
-
     return {
-        mode,
-        entry: path.resolve(__dirname, 'src/index'),
+        plugins: [
+            new ModuleFederationPlugin({
+                name: 'application1',
+                library: { type: 'window', name: 'application1' },
+                filename: 'remoteEntry.js',
+                exposes: {
+                    '.': path.resolve(__dirname, 'src')
+                },
+                shared: [
+                    'react',
+                    'react-dom',
+                    'styled-components'
+                ]
+              })
+        ],
         output: {
-            publicPath: `http://localhost:${port}/`,
+            path: path.resolve(__dirname, '../dist/application-1')
         },
-        devtool: 'source-map',
-        optimization: {
-            minimize: mode === 'production',
+        devServer: {
+            port: '3001',
+            client: {
+                overlay: false,
+            },
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
         },
+        mode: process.env.NODE_ENV || 'development',
         resolve: {
             extensions: ['.jsx', '.js', '.json', '.ts', '.tsx'],
             alias: {
@@ -41,29 +56,5 @@ module.exports = () => {
                 },
             ],
         },
-        devServer: {
-            port,
-            client: {
-                overlay: false,
-            },
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        },
-        plugins: [
-            new ModuleFederationPlugin({
-                name: remoteName,
-                library: { type: 'window', name: remoteName },
-                filename: 'remoteEntry.js',
-                exposes: {
-                    '.': path.resolve(__dirname, 'src')
-                },
-                shared: [
-                    'react',
-                    'react-dom',
-                    'styled-components'
-                ]
-              })
-        ]
     };
 };
