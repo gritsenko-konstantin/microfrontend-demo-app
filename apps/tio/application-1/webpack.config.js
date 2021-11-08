@@ -7,7 +7,7 @@ module.exports = () => {
         plugins: [
             new ModuleFederationPlugin({
                 name: 'application1',
-                library: { type: 'window', name: 'application1' },
+                library: { type: 'var', name: 'application1' },
                 filename: 'remoteEntry.js',
                 exposes: {
                     '.': path.resolve(__dirname, 'src')
