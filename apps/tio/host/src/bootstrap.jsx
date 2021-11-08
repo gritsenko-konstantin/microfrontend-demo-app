@@ -12,10 +12,12 @@ import { Link } from 'react-router-dom';
 import { PageComponent } from '@microfrontend-demo/design-system/components';
 import { CustomThemeProvider } from '@microfrontend-demo/design-system/styles';
 
+import { Application1 } from 'application1';
+import { Application2 } from 'application2';
+
 import { Theme } from './theme';
 import { SideNav } from './side-nav';
 import { Landing } from './landing';
-import { MicroApp } from './remote-utils';
 
 const Content = styled.div`
     padding: ${themeGet('space.4')};
@@ -51,12 +53,12 @@ const App = () => {
                                 
                                 <Route
                                     path='app1'
-                                    element={<MicroApp name='application1' />}
+                                    element={<Application1 />}
                                 />
-
+                                
                                 <Route
                                     path='app2'
-                                    element={<MicroApp name='application2' />}
+                                    element={<Application2 />}
                                 />
                             </Routes>  
                         </Content>
