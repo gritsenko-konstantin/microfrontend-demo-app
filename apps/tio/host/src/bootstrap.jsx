@@ -49,15 +49,15 @@ const App = () => {
                             <Routes>
                                 <Route path="/" element={<Landing />} />
                                 
-                                <Route
-                                    path='app1'
-                                    element={<MicroApp name='application1' />}
-                                />
+                                    <Route
+                                        path='app1'
+                                        element={<MicroApp remoteName='application-1' moduleName='Page1' />}
+                                    />
 
-                                <Route
-                                    path='app2'
-                                    element={<MicroApp name='application2' />}
-                                />
+                                    <Route
+                                        path='app2'
+                                        element={<MicroApp remoteName='application-2' moduleName='Page1' />}
+                                    />
                             </Routes>  
                         </Content>
                     </Wrapper>
@@ -66,6 +66,18 @@ const App = () => {
         </CustomThemeProvider>
     );
 };
+
+/*
+<Route
+    path='app1'
+    element={<MicroApp name='application-1' />}
+/>
+
+<Route
+    path='app2'
+    element={<MicroApp name='application-2' />}
+/>
+*/
 
 ReactDOM.render(
     <App />,

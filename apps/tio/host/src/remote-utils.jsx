@@ -62,22 +62,22 @@ const Loader = () => {
     );
 };
 
-const AttachedApp = ({ name }) => {
+const AttachedApp = ({ remoteName, moduleName }) => {
     const [app, setApp] = useState(<>loading</>);
 
     useEffect(() => {
-        attachRemote([name]).then((module) => {
-            setApp(module[name])
+        attachRemote([remoteName]).then((module) => {
+            setApp(module[moduleName])
          });
-    }, [ name ]);
+    }, [ remoteName ]);
 
     return app;
 };
 
-const MicroApp = ({ name }) => {
+const MicroApp = ({ remoteName, moduleName }) => {
     return (
         <Suspense fallback={<Loader />}>
-            <AttachedApp name={name} />
+            <AttachedApp remoteName={remoteName} moduleName={moduleName} />
         </Suspense>
     );
 };

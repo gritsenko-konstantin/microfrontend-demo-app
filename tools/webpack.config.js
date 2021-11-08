@@ -80,7 +80,7 @@ const getSharedCustomLibraries = async () => {
     return Object.fromEntries(libs);
 };
 
-const getFederatedPlugin = async (directory, remoteName) => {
+const getFederatedPlugin = async (remoteName) => {
     const customSharedLibs = await getSharedCustomLibraries();
     const sharedLibs = Object.assign(getSharedNpmLibraries(), customSharedLibs);
 
@@ -91,8 +91,8 @@ const getFederatedPlugin = async (directory, remoteName) => {
                 library: { type: 'window', name: 'host' },
                 filename: 'remoteEntry.js',
                 remotes: {
-                    'application1': 'application1',
-                    'application2': 'application2',
+                    'application-1': 'application-1',
+                    'application-2': 'application-2',
                     'design-system/components': 'design-system/components',
                     'design-system/styles': 'design-system/styles',
                     'tio/common': 'tio/common',
@@ -100,7 +100,7 @@ const getFederatedPlugin = async (directory, remoteName) => {
                 shared: sharedLibs
             }),
             new HtmlWebpackPlugin({
-                template: path.resolve(directory, 'public/index.html'),
+                template: path.resolve(__dirname, 'index.html'),
             }),
             new DefinePlugin({
                 REMOTE_INFO: JSON.stringify(getRemotes())
@@ -114,7 +114,7 @@ const getFederatedPlugin = async (directory, remoteName) => {
             library: { type: 'window', name: remoteName },
             filename: 'remoteEntry.js',
             exposes: {
-              '.': path.resolve(directory, 'src'),
+              '.': path.resolve(__dirname, `../apps/tio/${remoteName}/src`)
             },
             shared: sharedLibs
           })
@@ -122,14 +122,14 @@ const getFederatedPlugin = async (directory, remoteName) => {
 };
 
 const baseConfig = async (directory) => {
-    const package = require(path.resolve(directory, 'package.json'));
-    const remoteName = package.name;
+    // const package = require(path.resolve(directory, 'package.json'));
+    const remoteName = process.env.name; // package.name;
     const port = Object.values(getRemote(remoteName))[0];
-    const plugins = await getFederatedPlugin(directory, remoteName);
+    const plugins = await getFederatedPlugin(remoteName);
 
     return {
         mode,
-        entry: path.resolve(directory, './src/index'),
+        entry: path.resolve(__dirname, `../apps/tio/${remoteName}/src/index`),
         output: {
             publicPath: `http://localhost:${port}/`,
         },
