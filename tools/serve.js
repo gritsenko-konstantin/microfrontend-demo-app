@@ -1,12 +1,14 @@
 const path = require('path');
 const os = require('os');
 const spawn = require('cross-spawn');
+const opn = require('opn');
+const { argv } = require('yargs');
 
-const serveApp = (app) => {
-    const prefix = {}; // color(`[${configType}]`);
+let numberOfAppsReady = 0;
+
+const serveApp = (app, numberOfAppsToServe) => {
     const webpackConfig = 'webpack.config.js';
     const webpackArgs = ['webpack-dev-server', `--config=${path.join(__dirname, webpackConfig)}`];
-
     const stdio = ['pipe', 'pipe', 'pipe'];
     
     // If this is not a Windows machine, add ipc
@@ -14,66 +16,46 @@ const serveApp = (app) => {
         stdio.push('ipc');
     }
 
+    console.log(`\n${String(app).toUpperCase()} IS BEING BUILT\n`);
+
     const wds = spawn('npx', webpackArgs, {
         stdio,
         env: {
             name: app,
             NODE_ENV: 'development',
-            PATH: process.env.PATH,
-            APPDATA: process.env.APPDATA
+            PATH: process.env.PATH
         }
     });
 
-    // console.log(prefix, colors.yellow.bold.underline(' --- IGNITING ---\n'));
-
-    wds.stdout.on('data', data => {
-        // console.log(prefix, ` ${data}`);
-    });
-
-    wds.stderr.on('data', data => {
-        console.log(`${data}`);
-    });
-
     wds.on('error', err => {
-        // console.log(prefix, `ERROR 2 ${err}`);
-        // console.log(prefix, ' Failed to start webpack dev server. ', err);
-    });
-
-    wds.on('close', code => {
-        // console.log(prefix, `EXITING ${code}`);
-        // console.log(prefix, `EXITING --> child process exited with code ${code}`);
+        console.log(`Failed to start webpack dev server: ${err}`);
     });
 
     wds.on('message', message => {
-        console.log(prefix, ` ${message}`);
-
         message === 'ready' && numberOfAppsReady++;
 
-        const readyForLiftoff = numberOfAppsReady === numberOfAppsReadyNeeded;
+        const readyForLiftoff = numberOfAppsReady === numberOfAppsToServe;
 
-        if (!hasLiftedOff && readyForLiftoff) {
-            if (launchWhenComplete) {
-                // console.log(prefix, colors.bold.green(`${appOnly ? ' --- IGNITION SUCCESSFUL ---' : liftoffAsciiArt}`));
+        if (readyForLiftoff) {
+            console.log(`\nIGNITION SUCCESSFUL\n`);
 
-                // open && !appOnly && !libsOnly && opn('http://localhost:3333/tio/app.html#/');
+            opn('http://localhost:3000');
+        } else {
+            const percentComplete = 100 * (numberOfAppsReady / numberOfAppsToServe);
 
-                hasLiftedOff = true;
-            }
-
-            resolve();
-        } else if (!hasLiftedOff && !appOnly) {
-            // console.log(prefix, colors.bold.green(` is READY, but other micro apps still preparing for launch.`));
+            console.log(`\n${String(app).toUpperCase()} HAS BEEN BUILT, ${percentComplete}% COMPLETE\n`);
         }
     });
 }
 
-const serveApps = () => {
-    const appsToServe = ['host', 'application-1', 'application-2'];
+(() => {
+    const { apps, appOnly } = argv;
+    const parsedApps = apps ? apps.split(',') : [];
+    const appsToServe = parsedApps;
+
+    if (!appOnly) appsToServe.push('host');
 
     appsToServe.forEach(app => {
-        serveApp(app);
+        serveApp(app, appsToServe.length);
     })
-};
-
-serveApps();
-// serveApp('host');
+})();

@@ -168,6 +168,13 @@ const baseConfig = async (directory) => {
             },
             headers: {
                 'Access-Control-Allow-Origin': '*'
+            },
+            onListening: (server) => {
+                server.compiler.hooks.done.tap('done', () => {
+                    setImmediate(() => {
+                        process.send && process.send('ready');
+                    });
+                });
             }
         },
         plugins
