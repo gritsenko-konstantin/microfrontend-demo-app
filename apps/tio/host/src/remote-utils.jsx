@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const useDynamicScript = (url) => {
     return new Promise((resolve) => {
@@ -56,14 +56,8 @@ const attachRemote = async (remote) => {
     return attachedRemote;
 };
 
-const Loader = () => {
-    return (
-        <>Please wait while the application is loaded</>
-    );
-};
-
 const AttachedApp = ({ remoteName, moduleName }) => {
-    const [app, setApp] = useState(<>loading</>);
+    const [app, setApp] = useState(<>Please wait while the application is loaded</>);
 
     useEffect(() => {
         attachRemote([remoteName]).then((module) => {
@@ -74,13 +68,7 @@ const AttachedApp = ({ remoteName, moduleName }) => {
     return app;
 };
 
-const MicroApp = ({ remoteName, moduleName }) => {
-    return (
-        <Suspense fallback={<Loader />}>
-            <AttachedApp remoteName={remoteName} moduleName={moduleName} />
-        </Suspense>
-    );
-};
+const MicroApp = ({ remoteName, moduleName }) => <AttachedApp remoteName={remoteName} moduleName={moduleName} />;
 
 export {
     MicroApp
