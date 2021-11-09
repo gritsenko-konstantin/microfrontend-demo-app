@@ -16,8 +16,6 @@ const serveApp = (app, numberOfAppsToServe) => {
         stdio.push('ipc');
     }
 
-    console.log(`\n${String(app).toUpperCase()} IS BEING BUILT\n`);
-
     const wds = spawn('npx', webpackArgs, {
         stdio,
         env: {
@@ -25,6 +23,14 @@ const serveApp = (app, numberOfAppsToServe) => {
             NODE_ENV: 'development',
             PATH: process.env.PATH
         }
+    });
+
+    wds.stdout.on('data', data => {
+        console.log(`${data}`);
+    });
+
+    wds.stderr.on('data', data => {
+        console.log(`${data}`);
     });
 
     wds.on('error', err => {

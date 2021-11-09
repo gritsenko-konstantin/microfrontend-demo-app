@@ -67,18 +67,6 @@ const App = () => {
     );
 };
 
-/*
-<Route
-    path='app1'
-    element={<MicroApp name='application-1' />}
-/>
-
-<Route
-    path='app2'
-    element={<MicroApp name='application-2' />}
-/>
-*/
-
 ReactDOM.render(
     <App />,
     document.getElementById('root')

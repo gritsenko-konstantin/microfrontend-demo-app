@@ -6,7 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "serve": "node ./tools/serve"
+    "serve": "node ./tools/serve",
+    "local-server": "serve apps/tio/dist -p 3000"
   },
   "private": true,
   "dependencies": {
@@ -73,6 +74,7 @@
     "jest": "27.2.3",
     "opn": "^5.5.0",
     "prettier": "^2.3.1",
+    "serve": "^11.3.0",
     "ts-jest": "27.0.5",
     "typescript": "~4.3.5",
     "@babel/core": "^7.8.6",

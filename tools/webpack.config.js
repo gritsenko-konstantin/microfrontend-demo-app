@@ -1,7 +1,5 @@
 const path = require('path');
 const crypto = require('crypto');
-
-const glob = require('glob');
 const { hashElement } = require('folder-hash');
 const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -11,9 +9,15 @@ const workspace = require('../workspace.json');
 const package = require('../package.json');
 const { getRemote, getRemotes } = require('./remote-management');
 
+const envVars = process.env;
+const {
+    mode = 'development',
+    npm_config_showFileNames: showFilenames = false,
+    npm_config_skipMin: skipMin = false,
+    npm_config_writeToDisk: writeToDisk = false
+} = envVars;
+const devMode = mode === 'development';
 const allDependencies = { ...package.dependencies, ...package.devDependencies };
-
-const mode = process.env.NODE_ENV || 'development';
 
 /*
 Example output:
@@ -82,7 +86,7 @@ const getSharedCustomLibraries = async () => {
 
 const getFederatedPlugin = async (remoteName) => {
     const customSharedLibs = await getSharedCustomLibraries();
-    const sharedLibs = Object.assign(getSharedNpmLibraries(), customSharedLibs);
+    const sharedLibs = getSharedNpmLibraries(); // Object.assign(getSharedNpmLibraries(), customSharedLibs);
 
     if (remoteName === 'host') {
         return [
@@ -100,10 +104,16 @@ const getFederatedPlugin = async (remoteName) => {
                 shared: sharedLibs
             }),
             new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, 'index.html'),
+                template: path.resolve(__dirname, `../apps/tio/${remoteName}/public/index.html`),
+                templateParameters: () => {
+                    return {
+                        mode
+                    };
+                }
             }),
             new DefinePlugin({
-                REMOTE_INFO: JSON.stringify(getRemotes())
+                REMOTE_INFO: JSON.stringify(getRemotes()),
+                MODE: JSON.stringify(mode)
             })
         ];
     }
@@ -112,7 +122,7 @@ const getFederatedPlugin = async (remoteName) => {
         new ModuleFederationPlugin({
             name: remoteName,
             library: { type: 'window', name: remoteName },
-            filename: 'remoteEntry.js',
+            filename: `${remoteName}/remoteEntry.js`,
             exposes: {
               '.': path.resolve(__dirname, `../apps/tio/${remoteName}/src`)
             },
@@ -121,9 +131,8 @@ const getFederatedPlugin = async (remoteName) => {
     ];
 };
 
-const baseConfig = async (directory) => {
-    // const package = require(path.resolve(directory, 'package.json'));
-    const remoteName = process.env.name; // package.name;
+const baseConfig = async () => {
+    const remoteName = process.env.name;
     const port = Object.values(getRemote(remoteName))[0];
     const plugins = await getFederatedPlugin(remoteName);
 
@@ -131,11 +140,16 @@ const baseConfig = async (directory) => {
         mode,
         entry: path.resolve(__dirname, `../apps/tio/${remoteName}/src/index`),
         output: {
-            publicPath: `http://localhost:${port}/`,
+            uniqueName: remoteName,
+            path: path.resolve(__dirname, `../apps/tio/dist`),
+            chunkFilename: (devMode || showFilenames) ? `${remoteName}/[name].js` : `${remoteName}/[contenthash].js`,
+            filename: (devMode || showFilenames) ? `${remoteName}/[name].js` : `${remoteName}/[contenthash].js`
         },
         devtool: 'source-map',
         optimization: {
-            minimize: mode === 'production',
+            minimize: (devMode ? false : !skipMin),
+            moduleIds: 'named',
+            chunkIds: 'named'
         },
         resolve: {
             extensions: ['.jsx', '.js', '.json', '.ts', '.tsx'],
@@ -162,6 +176,9 @@ const baseConfig = async (directory) => {
             ],
         },
         devServer: {
+            devMiddleware: {
+                writeToDisk: Boolean(writeToDisk)
+            },
             port,
             client: {
                 overlay: false,

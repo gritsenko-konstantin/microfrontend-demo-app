@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack-dev-server"
+    "build": "name=host mode=production webpack --config=../../../tools/webpack.config.js",
+    "dev": "name=host webpack-dev-server --config=../../../tools/webpack.config.js"
   }
 }

@@ -48,9 +48,14 @@ const initializedRemoteContainer = async (scope, module = '.') => {
 };
 
 const attachRemote = async (remote) => {
-    const remotePort = REMOTE_INFO[remote];
+    /*
+        dev: http://localhost:3001/application-1/remoteEntry.js
+        production: http://localhost:3000/application-1/remoteEntry.js
+    */
+    const entry = MODE === 'development' ? `${REMOTE_INFO[remote]}/${remote}` : `${window.location.port}/${remote}`;
     const url = `${window.location.protocol}//${window.location.hostname}`;
-    await useDynamicScript(`${url}:${remotePort}/remoteEntry.js`);
+
+    await useDynamicScript(`${url}:${entry}/remoteEntry.js`);
     const attachedRemote = await initializedRemoteContainer(remote);
 
     return attachedRemote;

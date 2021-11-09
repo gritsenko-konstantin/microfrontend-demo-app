@@ -7,17 +7,25 @@
         "executor": "@nrwl/workspace:run-commands",
         "options": {
           "commands": [
-            "cd apps/tio/host && npm run dev",
-            "cd apps/tio/application-1 && npm run dev",
-            "cd apps/tio/application-2 && npm run dev"
-          ]
+            "npm run dev"
+          ],
+          "cwd": "apps/tio/host"
+        }
+    },
+    "build": {
+        "executor": "@nrwl/workspace:run-commands",
+        "options": {
+          "commands": [
+            "npm run build"
+          ],
+          "cwd": "apps/tio/host"
         }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/tio/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/tio/host/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
