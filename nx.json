@@ -50,5 +50,5 @@
       }
     }
   },
-  "defaultProject": "tio"
+  "defaultProject": "host"
 }
