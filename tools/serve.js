@@ -4,6 +4,8 @@ const spawn = require('cross-spawn');
 const opn = require('opn');
 const { argv } = require('yargs');
 
+const { getRemotes } = require('./remote-management');
+
 let numberOfAppsReady = 0;
 
 const serveApp = (app, numberOfAppsToServe) => {
@@ -55,13 +57,18 @@ const serveApp = (app, numberOfAppsToServe) => {
 }
 
 (() => {
-    const { apps, appOnly } = argv;
-    const parsedApps = apps ? apps.split(',') : [];
-    const appsToServe = parsedApps;
+    const { apps, appOnly, all } = argv;
+    let appsToServe = null;
 
-    if (!appOnly) appsToServe.push('host');
+    if (all) {
+        appsToServe = Object.keys(getRemotes());
+    } else {
+        appsToServe = apps ? apps.split(',') : [];;
+
+        if (!appOnly) appsToServe.push('host');
+    }
 
     appsToServe.forEach(app => {
         serveApp(app, appsToServe.length);
-    })
+    });
 })();

@@ -11,7 +11,12 @@ This project was generated using [Nx](https://nx.dev).
 
 ## Serve The Application
 
+yarn serve --all
+
 yarn serve --apps=application-1,application-2
+
+yarn serve --apps=application-1 --appOnly
+
 ## Build The Application
 
 1. nx build host --skip-nx-cache --showFileNames=true --skipMin=true
