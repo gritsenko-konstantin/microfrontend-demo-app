@@ -86,7 +86,7 @@ const getSharedCustomLibraries = async () => {
 
 const getFederatedPlugin = async (remoteName) => {
     const customSharedLibs = await getSharedCustomLibraries();
-    const sharedLibs = getSharedNpmLibraries(); // Object.assign(getSharedNpmLibraries(), customSharedLibs);
+    const npmSharedLibs = getSharedNpmLibraries();
 
     if (remoteName === 'host') {
         return [
@@ -101,7 +101,10 @@ const getFederatedPlugin = async (remoteName) => {
                     'design-system/styles': 'design-system/styles',
                     'tio/common': 'tio/common',
                 },
-                shared: sharedLibs
+                shared: {
+                    ...customSharedLibs,
+                    ...npmSharedLibs
+                }
             }),
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, `../apps/tio/${remoteName}/public/index.html`),
@@ -126,7 +129,10 @@ const getFederatedPlugin = async (remoteName) => {
             exposes: {
               '.': path.resolve(__dirname, `../apps/tio/${remoteName}/src`)
             },
-            shared: sharedLibs
+            shared: {
+                ...customSharedLibs,
+                ...npmSharedLibs
+            }
           })
     ];
 };
