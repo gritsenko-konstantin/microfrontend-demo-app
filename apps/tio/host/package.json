@@ -4,6 +4,6 @@
   "private": true,
   "scripts": {
     "build": "../../../node_modules/.bin/webpack --mode production",
-    "dev": "webpack-dev-server"
+    "dev": "../../../node_modules/.bin/webpack-dev-server"
   }
 }
