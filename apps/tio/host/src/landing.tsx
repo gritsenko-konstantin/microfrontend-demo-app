@@ -1,15 +1,3 @@
-/*
-import {
-    TestComponent1,
-    TestComponent2,
-    TestComponent3,
-    TestComponent4,
-    TestComponent5,
-    TestComponent6,
-    TestComponent7
-} from '@microfrontend-demo/design-system/components';
-*/
-
 import { TestComponent1 } from '@microfrontend-demo/design-system/components/test-component-1';
 import { TestComponent2 } from '@microfrontend-demo/design-system/components/test-component-2';
 import { TestComponent3 } from '@microfrontend-demo/design-system/components/test-component-3';

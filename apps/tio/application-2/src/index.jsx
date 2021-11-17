@@ -1,5 +1,5 @@
 import React from 'react';
-import { TestComponent2 } from '@microfrontend-demo/design-system/components';
+import { TestComponent2 } from '@microfrontend-demo/design-system/components/test-component-2';
 
 const Page1 = () => {
     return (
