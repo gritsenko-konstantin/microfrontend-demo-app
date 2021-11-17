@@ -83,8 +83,6 @@ const getFederatedPlugin = async (remoteName) => {
     const customSharedLibs = await getSharedCustomLibraries();
     const npmSharedLibs = getSharedNpmLibraries();
 
-    console.log(customSharedLibs);
-
     if (remoteName === 'host') {
         return [
             new ModuleFederationPlugin({
@@ -156,18 +154,9 @@ const baseConfig = async () => {
         },
         resolve: {
             extensions: ['.jsx', '.js', '.json', '.ts', '.tsx'],
-            alias: {
-                '@microfrontend-demo/design-system/components/page-component': path.resolve(__dirname, `../libs/design-system/components/src/lib/page-component`),
-                '@microfrontend-demo/design-system/components/test-component-1': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-1`),
-                '@microfrontend-demo/design-system/components/test-component-2': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-2`),
-                '@microfrontend-demo/design-system/components/test-component-3': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-3`),
-                '@microfrontend-demo/design-system/components/test-component-4': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-4`),
-                '@microfrontend-demo/design-system/components/test-component-5': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-5`),
-                '@microfrontend-demo/design-system/components/test-component-6': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-6`),
-                '@microfrontend-demo/design-system/components/test-component-7': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-7`),
-                '@microfrontend-demo/design-system/styles': path.resolve(__dirname, '../libs/design-system/styles/src'),
-                '@microfrontend-demo/tio/common': path.resolve(__dirname, '../libs/tio/common/src'),
-            }
+            alias: Object.fromEntries(
+                Object.entries(tsconfig.compilerOptions.paths).map(({ 0:key, 1:value }) => [key, path.resolve(__dirname, '..', value[0])])
+            )
         },
         module: {
             rules: [
