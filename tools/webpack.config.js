@@ -5,7 +5,7 @@ const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
-const workspace = require('../workspace.json');
+const tsconfig = require('../tsconfig.base.json');
 const package = require('../package.json');
 const { getRemote, getRemotes } = require('./remote-management');
 
@@ -58,23 +58,18 @@ Example output:
     }
 */
 const getSharedCustomLibraries = async () => {
-    const workspaceLibs = Object.fromEntries(
-        Object.entries(workspace.projects)
-        .filter(({ 1:value }) => value.includes('libs/'))
-        .map(({ 0:key, 1:value }) => [key, value])
-    );
     const hashOptions = {
         folders: { exclude: ['.*', 'node_modules', '__tests__'] },
         files: { include: ['*.js', '*.json', '*.ts', '*.tsx'] }
     };
 
     const libs = await Promise.all(
-        Object.entries(workspaceLibs).map(async ({ 0:key, 1:value }) => {
-            const libPath = path.resolve(__dirname, '..', value, 'src');
+        Object.entries(tsconfig.compilerOptions.paths).map(async ({ 0:key, 1:value }) => {
+            const libPath = path.resolve(__dirname, '..', value[0]);
             const hashInfo = await hashElement(libPath, hashOptions);
             const versionBasedOffHash = hashInfo.hash;
     
-            return [`@microfrontend-demo/${key}`, {
+            return [key, {
                 version: versionBasedOffHash,
                 requiredVersion: versionBasedOffHash
             }];
@@ -87,6 +82,8 @@ const getSharedCustomLibraries = async () => {
 const getFederatedPlugin = async (remoteName) => {
     const customSharedLibs = await getSharedCustomLibraries();
     const npmSharedLibs = getSharedNpmLibraries();
+
+    console.log(customSharedLibs);
 
     if (remoteName === 'host') {
         return [
@@ -127,7 +124,7 @@ const getFederatedPlugin = async (remoteName) => {
             library: { type: 'window', name: remoteName },
             filename: `${remoteName}/remoteEntry.js`,
             exposes: {
-              '.': path.resolve(__dirname, `../apps/tio/${remoteName}/src`)
+                '.': path.resolve(__dirname, `../apps/tio/${remoteName}/src`)
             },
             shared: {
                 ...customSharedLibs,
@@ -160,7 +157,14 @@ const baseConfig = async () => {
         resolve: {
             extensions: ['.jsx', '.js', '.json', '.ts', '.tsx'],
             alias: {
-                '@microfrontend-demo/design-system/components': path.resolve(__dirname, '../libs/design-system/components/src'),
+                '@microfrontend-demo/design-system/components/page-component': path.resolve(__dirname, `../libs/design-system/components/src/lib/page-component`),
+                '@microfrontend-demo/design-system/components/test-component-1': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-1`),
+                '@microfrontend-demo/design-system/components/test-component-2': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-2`),
+                '@microfrontend-demo/design-system/components/test-component-3': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-3`),
+                '@microfrontend-demo/design-system/components/test-component-4': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-4`),
+                '@microfrontend-demo/design-system/components/test-component-5': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-5`),
+                '@microfrontend-demo/design-system/components/test-component-6': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-6`),
+                '@microfrontend-demo/design-system/components/test-component-7': path.resolve(__dirname, `../libs/design-system/components/src/lib/test-component-7`),
                 '@microfrontend-demo/design-system/styles': path.resolve(__dirname, '../libs/design-system/styles/src'),
                 '@microfrontend-demo/tio/common': path.resolve(__dirname, '../libs/tio/common/src'),
             }

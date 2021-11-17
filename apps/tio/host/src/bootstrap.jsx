@@ -9,7 +9,7 @@ import {
   } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-import { PageComponent } from '@microfrontend-demo/design-system/components';
+import { PageComponent } from '@microfrontend-demo/design-system/components/page-component';
 import { CustomThemeProvider } from '@microfrontend-demo/design-system/styles';
 
 import { Theme } from './theme';

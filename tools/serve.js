@@ -49,9 +49,7 @@ const serveApp = (app, numberOfAppsToServe) => {
 
             opn('http://localhost:3000');
         } else {
-            const percentComplete = 100 * (numberOfAppsReady / numberOfAppsToServe);
-
-            console.log(`\n${String(app).toUpperCase()} HAS BEEN BUILT, ${percentComplete}% COMPLETE\n`);
+            console.log(`\n${String(app).toUpperCase()} HAS BEEN BUILT\n`);
         }
     });
 }
