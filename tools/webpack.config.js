@@ -155,7 +155,9 @@ const baseConfig = async () => {
         resolve: {
             extensions: ['.jsx', '.js', '.json', '.ts', '.tsx'],
             alias: Object.fromEntries(
-                Object.entries(tsconfig.compilerOptions.paths).map(({ 0:key, 1:value }) => [key, path.resolve(__dirname, '..', value[0])])
+                Object.entries(tsconfig.compilerOptions.paths).map(({ 0:key, 1:value }) =>
+                    [key, path.resolve(__dirname, '..', value[0])]
+                )
             )
         },
         module: {
