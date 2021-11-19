@@ -1,6 +1,6 @@
 {
   "name": "microfrontend-demo",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
@@ -73,5 +73,10 @@
     "prettier": "^2.3.1",
     "ts-jest": "27.0.5",
     "typescript": "~4.3.5"
+  },
+  "engines": {
+    "node": ">=14.15.0 <16.0.0",
+    "npm": "^6.13.4",
+    "yarn": "^1.21.0"
   }
 }
