@@ -2,8 +2,6 @@
 
 # Microfrontend Demo
 
-## Description
-
 In the article [Introducing The Monorepo & NX](https://docs.google.com/document/d/1vfP1rdHtzruN2wkhdO15nal1D5gYFzXkf2go8Wswkk8/edit#), a demo is used to demonstrate the various concepts discussed.  The following branch contains the code driving that demo for those who wish to see this code in action.
 ## Setup
 
