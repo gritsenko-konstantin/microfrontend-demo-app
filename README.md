@@ -1,8 +1,10 @@
 
 
-# MicrofrontendDemo
+# Microfrontend Demo
 
-The following branch was created to help demonstrate the concepts discussed in the [following article](https://docs.google.com/document/d/1vfP1rdHtzruN2wkhdO15nal1D5gYFzXkf2go8Wswkk8/edit#).
+## Description
+
+In the article [Introducing The Monorepo & NX](https://docs.google.com/document/d/1vfP1rdHtzruN2wkhdO15nal1D5gYFzXkf2go8Wswkk8/edit#), a demo is used to demonstrate the various concepts discussed.  The following branch contains the code driving that demo for those who wish to see this code in action.
 ## Setup
 
 Install NX with npm via `npm install -g nx`
