@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'design-system-styles',
+  displayName: 'design-system/styles',
   preset: '../../../jest.preset.js',
   transform: {
     '^.+\\.[tj]sx?$': 'babel-jest',

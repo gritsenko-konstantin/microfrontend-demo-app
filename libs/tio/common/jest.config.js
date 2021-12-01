@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'tio-common',
+  displayName: 'tio/common',
   preset: '../../../jest.preset.js',
   transform: {
     '^.+\\.[tj]sx?$': 'babel-jest',
