@@ -9,7 +9,7 @@ Install NX with npm via `npm install -g nx`
 ## Serve The Host Application
 
 1. Run the `nx serve host` command
-2. Open `http://127.0.0.1:3333/` in your browser
+2. Open `http://127.0.0.1:3000/` in your browser
 
 ## Serve The Design-System Application
 
