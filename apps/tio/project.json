@@ -41,7 +41,7 @@
       "options": {
         "buildTarget": "tio:build",
         "hmr": true,
-        "port": 3333
+        "port": 3000
       },
       "configurations": {
         "production": {
