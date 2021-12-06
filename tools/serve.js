@@ -1,6 +1,6 @@
 const path = require('path');
 const os = require('os');
-const spawn = require('cross-spawn');
+const { spawn } = require('child_process');
 const opn = require('opn');
 const { argv } = require('yargs');
 
@@ -10,7 +10,8 @@ let numberOfAppsReady = 0;
 
 const serveApp = (app, numberOfAppsToServe) => {
     const webpackConfig = 'webpack.config.js';
-    const webpackArgs = ['webpack-dev-server', `--config=${path.join(__dirname, webpackConfig)}`];
+    const webpackDevServer = path.join(__dirname, '..', 'node_modules', 'webpack-dev-server', 'bin', 'webpack-dev-server.js');
+    const webpackArgs = [webpackDevServer, `--config=${path.join(__dirname, webpackConfig)}`];
     const stdio = ['pipe', 'pipe', 'pipe'];
     
     // If this is not a Windows machine, add ipc
@@ -18,7 +19,7 @@ const serveApp = (app, numberOfAppsToServe) => {
         stdio.push('ipc');
     }
 
-    const wds = spawn('npx', webpackArgs, {
+    const wds = spawn('node', webpackArgs, {
         stdio,
         env: {
             name: app,
