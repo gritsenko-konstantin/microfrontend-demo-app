@@ -13,6 +13,7 @@ Install NX with npm via `npm install -g nx`
 - To build the Host application and one specific application, run `yarn serve --apps=application-1`
 - To only the Host application, run `yarn serve`
 - To only build a specific mico-app, run `yarn serve --apps=application-1 --appOnly`
+
 ## Build/Serve The TIO Application
 
 1. nx build host --skip-nx-cache --showFileNames=true --skipMin=true
