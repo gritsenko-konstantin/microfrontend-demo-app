@@ -37,7 +37,7 @@ module.exports = () => {
             alias: {
                 '@microfrontend-demo/design-system/components': path.resolve(__dirname, '../../../libs/design-system/components/src'),
                 '@microfrontend-demo/design-system/styles': path.resolve(__dirname, '../../../libs/design-system/styles/src'),
-                '@microfrontend-demo/tio/common': path.resolve(__dirname, '../../../libs/tio/common/src'),
+                '@microfrontend-demo/tenable-io/common': path.resolve(__dirname, '../../../libs/tenable-io/common/src'),
             }
         },
         module: {

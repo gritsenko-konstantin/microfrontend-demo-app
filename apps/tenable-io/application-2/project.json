@@ -1,6 +1,6 @@
 {
-  "root": "apps/tio/application-2",
-  "sourceRoot": "apps/tio/application-2/src",
+  "root": "apps/tenable-io/application-2",
+  "sourceRoot": "apps/tenable-io/application-2/src",
   "projectType": "application",
   "targets": {
     "serve": {
@@ -15,14 +15,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/tio/application-2/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/tenable-io/application-2/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/tio/application-2"],
+      "outputs": ["coverage/apps/tenable-io/application-2"],
       "options": {
-        "jestConfig": "apps/tio/application-2/jest.config.js",
+        "jestConfig": "apps/tenable-io/application-2/jest.config.js",
         "passWithNoTests": true
       }
     }

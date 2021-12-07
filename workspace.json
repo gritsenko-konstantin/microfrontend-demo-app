@@ -1,12 +1,12 @@
 {
   "version": 1,
   "projects": {
-    "host": "apps/tio/host",
-    "application1": "apps/tio/application-1",
-    "application2": "apps/tio/application-2",
+    "host": "apps/tenable-io/host",
+    "application1": "apps/tenable-io/application-1",
+    "application2": "apps/tenable-io/application-2",
     "design-system": "apps/design-system",
     "design-system/components": "libs/design-system/components",
     "design-system/styles": "libs/design-system/styles",
-    "tio/common": "libs/tio/common"
+    "tenable-io/common": "libs/tenable-io/common"
   }
 }

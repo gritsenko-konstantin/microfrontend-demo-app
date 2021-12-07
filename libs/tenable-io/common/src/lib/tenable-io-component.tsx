@@ -11,18 +11,18 @@ const CustomStyle = styled.button`
     ${color}
     ${space}
     border: none;
-    background-color: ${themeGet('colors.tio_dark')};
+    background-color: ${themeGet('colors.tenable_io_dark')};
     color: ${themeGet('colors.white_text')};
     margin-right: ${themeGet('space.2')};
     padding: ${themeGet('space.2')};
 `;
 
-export function TioComponent(props: TestComponentsProps) {
+export function TenableIoComponent(props: TestComponentsProps) {
     return (
         <CustomStyle>
-            Tio Component
+            Tenable IO Component
         </CustomStyle>
     );
 }
 
-export default TioComponent;
+export default TenableIoComponent;
