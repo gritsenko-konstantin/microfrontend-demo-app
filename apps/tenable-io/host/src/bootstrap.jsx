@@ -41,7 +41,7 @@ const App = () => {
     return (
         <CustomThemeProvider theme={Theme}>
             <HashRouter>
-                <PageComponent headerLogo={<HeaderLogo to='/'>Tio</HeaderLogo>}>
+                <PageComponent headerLogo={<HeaderLogo to='/'>Tenable.io</HeaderLogo>}>
                     <Wrapper>
                         <SideNav />
 
