@@ -1,6 +1,6 @@
 {
-  "root": "apps/tio",
-  "sourceRoot": "apps/tio/src",
+  "root": "apps/tenable-io",
+  "sourceRoot": "apps/tenable-io/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -8,13 +8,13 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/tio",
-        "index": "apps/tio/src/index.html",
+        "outputPath": "dist/apps/tenable-io",
+        "index": "apps/tenable-io/src/index.html",
         "baseHref": "/",
-        "main": "apps/tio/src/main.tsx",
-        "polyfills": "apps/tio/src/polyfills.ts",
-        "tsConfig": "apps/tio/tsconfig.app.json",
-        "assets": ["apps/tio/src/favicon.ico", "apps/tio/src/assets"],
+        "main": "apps/tenable-io/src/main.tsx",
+        "polyfills": "apps/tenable-io/src/polyfills.ts",
+        "tsConfig": "apps/tenable-io/tsconfig.app.json",
+        "assets": ["apps/tenable-io/src/favicon.ico", "apps/tenable-io/src/assets"],
         "styles": [],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"
@@ -23,8 +23,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/tio/src/environments/environment.ts",
-              "with": "apps/tio/src/environments/environment.prod.ts"
+              "replace": "apps/tenable-io/src/environments/environment.ts",
+              "with": "apps/tenable-io/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,
@@ -39,13 +39,13 @@
     "serve": {
       "executor": "@nrwl/web:dev-server",
       "options": {
-        "buildTarget": "tio:build",
+        "buildTarget": "tenable-io:build",
         "hmr": true,
         "port": 3000
       },
       "configurations": {
         "production": {
-          "buildTarget": "tio:build:production",
+          "buildTarget": "tenable-io:build:production",
           "hmr": false
         }
       }
@@ -54,14 +54,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/tio/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/tenable-io/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/tio"],
+      "outputs": ["coverage/apps/tenable-io"],
       "options": {
-        "jestConfig": "apps/tio/jest.config.js",
+        "jestConfig": "apps/tenable-io/jest.config.js",
         "passWithNoTests": true
       }
     }

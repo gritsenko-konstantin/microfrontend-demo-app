@@ -8,7 +8,7 @@ In the article [Introducing The Monorepo & NX](https://docs.google.com/document/
 Install NX with npm via `npm install -g nx`
 ## Serve The TIO Application
 
-1. Run the `nx serve tio` command
+1. Run the `nx serve tenable-io` command
 2. Open `http://127.0.0.1:3000/` in your browser
 
 ## Serve The Design-System Application

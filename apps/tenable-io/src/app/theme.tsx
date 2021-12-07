@@ -4,9 +4,9 @@ export const Theme = {
     ...BaseTheme,
     colors: {
         ...BaseTheme.colors,
-        tio: '#2196F3',
-        tio_dark: '#1976D2',
-        tio_light: '#BBDEFB'
+        tenable_io: '#2196F3',
+        tenable_io_dark: '#1976D2',
+        tenable_io_light: '#BBDEFB'
     }
 };
 

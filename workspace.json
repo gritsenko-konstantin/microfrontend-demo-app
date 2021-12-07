@@ -2,9 +2,9 @@
   "version": 1,
   "projects": {
     "design-system": "apps/design-system",
-    "tio": "apps/tio",
+    "tenable-io": "apps/tenable-io",
     "design-system/components": "libs/design-system/components",
     "design-system/styles": "libs/design-system/styles",
-    "tio/common": "libs/tio/common"
+    "tenable-io/common": "libs/tenable-io/common"
   }
 }

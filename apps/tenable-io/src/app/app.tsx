@@ -27,7 +27,7 @@ const Wrapper = styled.div`
 `;
 
 const HeaderLogo = styled(Link)<{ children: React.ReactNode}>`
-    background-color: ${themeGet('colors.tio_dark')};
+    background-color: ${themeGet('colors.tenable_io')};
     color: ${themeGet('colors.white_text')};
     font-size: ${themeGet('fontSizes.2')};
     height: 40px;
