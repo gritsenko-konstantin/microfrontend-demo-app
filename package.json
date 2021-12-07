@@ -7,7 +7,7 @@
     "build": "nx build",
     "test": "nx test",
     "serve": "node ./tools/serve",
-    "local-server": "serve apps/tio/dist -p 3000"
+    "local-server": "serve apps/tenable-io/dist -p 3000"
   },
   "private": true,
   "dependencies": {

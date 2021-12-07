@@ -62,14 +62,14 @@ const getFederatedPlugin = async (remoteName) => {
                     'application-2': 'application-2',
                     'design-system/components': 'design-system/components',
                     'design-system/styles': 'design-system/styles',
-                    'tio/common': 'tio/common',
+                    'tenable-io/common': 'tenable-io/common',
                 },
                 shared: {
                     ...npmSharedLibs
                 }
             }),
             new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, `../apps/tio/${remoteName}/public/index.html`),
+                template: path.resolve(__dirname, `../apps/tenable-io/${remoteName}/public/index.html`),
                 templateParameters: () => {
                     return {
                         mode
@@ -89,7 +89,7 @@ const getFederatedPlugin = async (remoteName) => {
             library: { type: 'window', name: remoteName },
             filename: `${remoteName}/remoteEntry.js`,
             exposes: {
-                '.': path.resolve(__dirname, `../apps/tio/${remoteName}/src`)
+                '.': path.resolve(__dirname, `../apps/tenable-io/${remoteName}/src`)
             },
             shared: {
                 ...npmSharedLibs
@@ -105,10 +105,10 @@ const baseConfig = async () => {
 
     return {
         mode,
-        entry: path.resolve(__dirname, `../apps/tio/${remoteName}/src/index`),
+        entry: path.resolve(__dirname, `../apps/tenable-io/${remoteName}/src/index`),
         output: {
             uniqueName: remoteName,
-            path: path.resolve(__dirname, `../apps/tio/dist`),
+            path: path.resolve(__dirname, `../apps/tenable-io/dist`),
             chunkFilename: (devMode || showFilenames) ? `${remoteName}/[name].js` : `${remoteName}/[contenthash].js`,
             filename: (devMode || showFilenames) ? `${remoteName}/[name].js` : `${remoteName}/[contenthash].js`
         },
