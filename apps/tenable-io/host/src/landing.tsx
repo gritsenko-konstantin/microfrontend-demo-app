@@ -1,5 +1,5 @@
 import { TestComponent1, TestComponent2 } from '@microfrontend-demo/design-system/components';
-import { TioComponent } from '@microfrontend-demo/tio/common';
+import { TenableIoComponent } from '@microfrontend-demo/tenable-io/common';
 
 export function Landing() {
     return (
@@ -8,7 +8,7 @@ export function Landing() {
 
             <TestComponent1 />
             <TestComponent2 />
-            <TioComponent />
+            <TenableIoComponent />
         </>
     );
 }

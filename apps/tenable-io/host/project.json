@@ -1,6 +1,6 @@
 {
-  "root": "apps/tio/host",
-  "sourceRoot": "apps/tio/host/src",
+  "root": "apps/tenable-io/host",
+  "sourceRoot": "apps/tenable-io/host/src",
   "projectType": "application",
   "targets": {
     "serve": {
@@ -9,7 +9,7 @@
           "commands": [
             "npm run dev"
           ],
-          "cwd": "apps/tio/host"
+          "cwd": "apps/tenable-io/host"
         }
     },
     "build": {
@@ -18,21 +18,21 @@
           "commands": [
             "npm run build"
           ],
-          "cwd": "apps/tio/host"
+          "cwd": "apps/tenable-io/host"
         }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/tio/host/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/tenable-io/host/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/tio/host"],
+      "outputs": ["coverage/apps/tenable-io/host"],
       "options": {
-        "jestConfig": "apps/tio/host/jest.config.js",
+        "jestConfig": "apps/tenable-io/host/jest.config.js",
         "passWithNoTests": true
       }
     }

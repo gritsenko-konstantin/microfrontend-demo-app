@@ -21,7 +21,7 @@
       "@microfrontend-demo/design-system/styles": [
         "libs/design-system/styles/src/index.ts"
       ],
-      "@microfrontend-demo/tio/common": ["libs/tio/common/src/index.ts"]
+      "@microfrontend-demo/tenable-io/common": ["libs/tenable-io/common/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
