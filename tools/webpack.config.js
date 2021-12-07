@@ -1,4 +1,6 @@
 const path = require('path');
+const crypto = require('crypto');
+const { hashElement } = require('folder-hash');
 const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
@@ -48,7 +50,37 @@ const getSharedNpmLibraries = () => {
     }));
 };
 
+/*
+Example output:
+    '@microfrontend-demo/design-system/components': {
+        version: '6wDxWeZ+hG0Dp6wUHuipPqPzE10=',
+        requiredVersion: '6wDxWeZ+hG0Dp6wUHuipPqPzE10='
+    }
+*/
+const getSharedCustomLibraries = async () => {
+    const hashOptions = {
+        folders: { exclude: ['.*', 'node_modules', '__tests__'] },
+        files: { include: ['*.js', '*.json', '*.ts', '*.tsx'] }
+    };
+
+    const libs = await Promise.all(
+        Object.entries(tsconfig.compilerOptions.paths).map(async ({ 0:key, 1:value }) => {
+            const libPath = path.resolve(__dirname, '..', value[0]);
+            const hashInfo = await hashElement(libPath, hashOptions);
+            const versionBasedOffHash = hashInfo.hash;
+    
+            return [key, {
+                version: versionBasedOffHash,
+                requiredVersion: versionBasedOffHash
+            }];
+        })
+    );
+
+    return Object.fromEntries(libs);
+};
+
 const getFederatedPlugin = async (remoteName) => {
+    const customSharedLibs = await getSharedCustomLibraries();
     const npmSharedLibs = getSharedNpmLibraries();
 
     if (remoteName === 'host') {
@@ -65,6 +97,7 @@ const getFederatedPlugin = async (remoteName) => {
                     'tenable-io/common': 'tenable-io/common',
                 },
                 shared: {
+                    ...customSharedLibs,
                     ...npmSharedLibs
                 }
             }),
@@ -92,6 +125,7 @@ const getFederatedPlugin = async (remoteName) => {
                 '.': path.resolve(__dirname, `../apps/tenable-io/${remoteName}/src`)
             },
             shared: {
+                ...customSharedLibs,
                 ...npmSharedLibs
             }
           })
@@ -121,9 +155,7 @@ const baseConfig = async () => {
         resolve: {
             extensions: ['.jsx', '.js', '.json', '.ts', '.tsx'],
             alias: Object.fromEntries(
-                Object.entries(tsconfig.compilerOptions.paths).map(({ 0:key, 1:value }) =>
-                    [key, path.resolve(__dirname, '..', value[0])]
-                )
+                Object.entries(tsconfig.compilerOptions.paths).map(({ 0:key, 1:value }) => [key, path.resolve(__dirname, '..', value[0])])
             )
         },
         module: {

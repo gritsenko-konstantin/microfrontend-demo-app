@@ -15,8 +15,29 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@microfrontend-demo/design-system/components": [
-        "libs/design-system/components/src/index.ts"
+      "@microfrontend-demo/design-system/components/page-component": [
+        "libs/design-system/components/src/lib/page-component.tsx"
+      ],
+      "@microfrontend-demo/design-system/components/test-component-1": [
+        "libs/design-system/components/src/lib/test-component-1.tsx"
+      ],
+      "@microfrontend-demo/design-system/components/test-component-2": [
+        "libs/design-system/components/src/lib/test-component-2.tsx"
+      ],
+      "@microfrontend-demo/design-system/components/test-component-3": [
+        "libs/design-system/components/src/lib/test-component-3.tsx"
+      ],
+      "@microfrontend-demo/design-system/components/test-component-4": [
+        "libs/design-system/components/src/lib/test-component-4.tsx"
+      ],
+      "@microfrontend-demo/design-system/components/test-component-5": [
+        "libs/design-system/components/src/lib/test-component-5.tsx"
+      ],
+      "@microfrontend-demo/design-system/components/test-component-6": [
+        "libs/design-system/components/src/lib/test-component-6.tsx"
+      ],
+      "@microfrontend-demo/design-system/components/test-component-7": [
+        "libs/design-system/components/src/lib/test-component-7.tsx"
       ],
       "@microfrontend-demo/design-system/styles": [
         "libs/design-system/styles/src/index.ts"
