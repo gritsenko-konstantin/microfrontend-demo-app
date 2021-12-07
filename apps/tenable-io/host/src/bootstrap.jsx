@@ -9,7 +9,7 @@ import {
   } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-import { PageComponent } from '@microfrontend-demo/design-system/components/page-component';
+import { PageComponent } from '@microfrontend-demo/design-system/components';
 import { CustomThemeProvider } from '@microfrontend-demo/design-system/styles';
 
 import { Theme } from './theme';
@@ -27,7 +27,7 @@ const Wrapper = styled.div`
 `;
 
 const HeaderLogo = styled(Link)`
-    background-color: ${themeGet('colors.tio_dark')};
+    background-color: ${themeGet('colors.tenable_io_dark')};
     color: ${themeGet('colors.white_text')};
     font-size: ${themeGet('fontSizes.2')};
     height: 40px;

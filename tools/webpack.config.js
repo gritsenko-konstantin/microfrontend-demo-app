@@ -1,6 +1,4 @@
 const path = require('path');
-const crypto = require('crypto');
-const { hashElement } = require('folder-hash');
 const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
@@ -50,37 +48,7 @@ const getSharedNpmLibraries = () => {
     }));
 };
 
-/*
-Example output:
-    '@microfrontend-demo/design-system/components': {
-        version: '6wDxWeZ+hG0Dp6wUHuipPqPzE10=',
-        requiredVersion: '6wDxWeZ+hG0Dp6wUHuipPqPzE10='
-    }
-*/
-const getSharedCustomLibraries = async () => {
-    const hashOptions = {
-        folders: { exclude: ['.*', 'node_modules', '__tests__'] },
-        files: { include: ['*.js', '*.json', '*.ts', '*.tsx'] }
-    };
-
-    const libs = await Promise.all(
-        Object.entries(tsconfig.compilerOptions.paths).map(async ({ 0:key, 1:value }) => {
-            const libPath = path.resolve(__dirname, '..', value[0]);
-            const hashInfo = await hashElement(libPath, hashOptions);
-            const versionBasedOffHash = hashInfo.hash;
-    
-            return [key, {
-                version: versionBasedOffHash,
-                requiredVersion: versionBasedOffHash
-            }];
-        })
-    );
-
-    return Object.fromEntries(libs);
-};
-
 const getFederatedPlugin = async (remoteName) => {
-    const customSharedLibs = await getSharedCustomLibraries();
     const npmSharedLibs = getSharedNpmLibraries();
 
     if (remoteName === 'host') {
@@ -94,15 +62,14 @@ const getFederatedPlugin = async (remoteName) => {
                     'application-2': 'application-2',
                     'design-system/components': 'design-system/components',
                     'design-system/styles': 'design-system/styles',
-                    'tio/common': 'tio/common',
+                    'tenable-io/common': 'tenable-io/common',
                 },
                 shared: {
-                    ...customSharedLibs,
                     ...npmSharedLibs
                 }
             }),
             new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, `../apps/tio/${remoteName}/public/index.html`),
+                template: path.resolve(__dirname, `../apps/tenable-io/${remoteName}/public/index.html`),
                 templateParameters: () => {
                     return {
                         mode
@@ -122,10 +89,9 @@ const getFederatedPlugin = async (remoteName) => {
             library: { type: 'window', name: remoteName },
             filename: `${remoteName}/remoteEntry.js`,
             exposes: {
-                '.': path.resolve(__dirname, `../apps/tio/${remoteName}/src`)
+                '.': path.resolve(__dirname, `../apps/tenable-io/${remoteName}/src`)
             },
             shared: {
-                ...customSharedLibs,
                 ...npmSharedLibs
             }
           })
@@ -139,10 +105,10 @@ const baseConfig = async () => {
 
     return {
         mode,
-        entry: path.resolve(__dirname, `../apps/tio/${remoteName}/src/index`),
+        entry: path.resolve(__dirname, `../apps/tenable-io/${remoteName}/src/index`),
         output: {
             uniqueName: remoteName,
-            path: path.resolve(__dirname, `../apps/tio/dist`),
+            path: path.resolve(__dirname, `../apps/tenable-io/dist`),
             chunkFilename: (devMode || showFilenames) ? `${remoteName}/[name].js` : `${remoteName}/[contenthash].js`,
             filename: (devMode || showFilenames) ? `${remoteName}/[name].js` : `${remoteName}/[contenthash].js`
         },
@@ -155,7 +121,9 @@ const baseConfig = async () => {
         resolve: {
             extensions: ['.jsx', '.js', '.json', '.ts', '.tsx'],
             alias: Object.fromEntries(
-                Object.entries(tsconfig.compilerOptions.paths).map(({ 0:key, 1:value }) => [key, path.resolve(__dirname, '..', value[0])])
+                Object.entries(tsconfig.compilerOptions.paths).map(({ 0:key, 1:value }) =>
+                    [key, path.resolve(__dirname, '..', value[0])]
+                )
             )
         },
         module: {
