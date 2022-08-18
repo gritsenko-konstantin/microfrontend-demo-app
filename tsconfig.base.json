@@ -39,6 +39,9 @@
       "@microfrontend-demo/design-system/components/test-component-7": [
         "libs/design-system/components/src/lib/test-component-7.tsx"
       ],
+      "@microfrontend-demo/design-system/components": [
+        "libs/design-system/components/src/index.ts"
+      ],
       "@microfrontend-demo/design-system/styles": [
         "libs/design-system/styles/src/index.ts"
       ],
