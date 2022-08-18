@@ -1,4 +1,11 @@
+# HOW TO START WORKING EXAMPLE
 
+```bash
+npm install
+npm install -g nx
+mode=production nx run-many --all --target=build
+docker run --rm -it -v $(pwd)/apps/tenable-io/dist:/usr/share/nginx/html -p 1234:80 nginx:stable-alpine
+```
 
 # Microfrontend Demo
 
