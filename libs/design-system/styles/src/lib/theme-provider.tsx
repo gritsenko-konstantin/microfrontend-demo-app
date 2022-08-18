@@ -5,7 +5,7 @@ import React from 'react';
 export interface DesignSystemComponentsProps {
     children: string | React.ReactNode;
     theme: Record<string, unknown>;
-};
+}
 
 export function CustomThemeProvider(props: DesignSystemComponentsProps) {
     const GlobalStyles = createGlobalStyle`
@@ -19,7 +19,7 @@ export function CustomThemeProvider(props: DesignSystemComponentsProps) {
             padding: 0;
             margin: 0;
         }
-        
+
         body, #root {
             height: 100%;
             display: flex;

@@ -4,6 +4,13 @@
 npm install
 npm install -g nx
 mode=production nx run-many --all --target=build
+```
+Run nodejs web server
+```bash
+npx http-server -a localhost -p 80 ./apps/tenable-io/dist 
+```
+If you have docker
+```bash
 docker run --rm -it -v $(pwd)/apps/tenable-io/dist:/usr/share/nginx/html -p 1234:80 nginx:stable-alpine
 ```
 
